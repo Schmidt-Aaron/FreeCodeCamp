@@ -1,0 +1,59 @@
+Create a function that sums two arguments together. If only one argument is provided, then return a function that expects one argument and returns the sum.
+
+For example, addTogether(2, 3) should return 5, and addTogether(2) should return a function.
+
+Calling this returned function with a single argument will then return the sum:
+
+var sumTwoAnd = addTogether(2);
+
+sumTwoAnd(3) returns 5.
+
+If either argument isn't a valid number, return undefined.
+
+//my code start
+function addTogether() {
+  var args = Array.from(arguments);
+
+//bundle repeated action into a function
+// checks to see if the passed variable is a number
+  function isNum(a) {
+    if(typeof a !== 'number') {
+      return undefined;
+    } else {
+      return a;
+    }
+  }
+//check if there are two arguments
+//check if both are numbers
+//return undefined if not; otherwise return sum 
+   if(args.length === 2) {
+    var arg1 = isNum(args[0]);
+    var arg2 = isNum(args[1]); 
+    if(arg1 === undefined || arg2 === undefined){
+      return undefined;
+    } else {
+    return arg1 + arg2;
+    }
+  }
+  
+  //what to do if only 1 argument
+  //assign argument to new variable so we can call it later 
+  //return undefined if not a number
+  //if is a number return a function asking for another variable and repeat the process above 
+  if(args.length === 1) {
+    var arg3 = isNum(args[0]);
+    
+    if(arg3 === undefined){
+      return undefined;
+    } else {
+      return function(b) {
+        if(isNum(b) === undefined) {
+          return undefined;
+        } else {
+          return arg3 + b;
+        }
+      };
+    }
+  }
+  
+}
