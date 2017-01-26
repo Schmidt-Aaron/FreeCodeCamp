@@ -1,0 +1,45 @@
+Smallest Common Multiple
+Find the smallest common multiple of the provided parameters that can be evenly divided by both, as well as by all sequential numbers in the range between these parameters.
+
+The range will be an array of two numbers that will not necessarily be in numerical order.
+
+e.g. for 1 and 3 - find the smallest common multiple of both 1 and 3 that is evenly divisible by all numbers between 1 and 3.
+
+Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write your own code.
+
+Here are some helpful links:
+
+Smallest Common Multiple
+
+//start code
+function smallestCommons(arr) {
+  // lets order the array from sm->lg
+  var orderedArr = arr.sort(function(a , b) {
+    return a - b;
+  });
+  
+  //lets fill in the missing numbers to obtain all of the numbers we need to check
+  var fullArr = [];
+  for(var i = orderedArr[0]; i <= orderedArr[1]; i++) {
+    fullArr.push(i);
+  }
+  
+ 
+  //we can save time by starting at the multiple of the two highest numbers and then increase loop by the largest number
+  //can probably optimize further
+  var increment = fullArr[fullArr.length -1]; // this is how much we will advance the counter each loop
+  var start, num = increment * fullArr[fullArr.length - 2]; //these are our starting numbers
+ 
+
+  //loop that checks if the current num is evenly divisible by the largest number in the array 
+      for (var j = fullArr.length -1; j >= 0;) {
+        if (num % fullArr[j] !== 0) {
+          num += increment;
+          j = fullArr.length -1; //starts counter over again.
+        } else if(num % fullArr[j] === 0) {
+          j--; // counts down if number is divisible
+        }
+      }
+      
+      return num;
+    } // end isDivisible
