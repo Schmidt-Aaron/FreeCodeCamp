@@ -28,18 +28,20 @@ function smallestCommons(arr) {
   //we can save time by starting at the multiple of the two highest numbers and then increase loop by the largest number
   //can probably optimize further
   var increment = fullArr[fullArr.length -1]; // this is how much we will advance the counter each loop
-  var start, num = increment * fullArr[fullArr.length - 2]; //these are our starting numbers
+  var start = increment * fullArr[fullArr.length - 2]; //starting number
  
 
-  //loop that checks if the current num is evenly divisible by the largest number in the array 
+  //loop that checks if the current number is evenly divisible by all the numbers in the array
+  // if not it increases the number and starts the loop over again
+  //returns the number otherwise
       for (var j = fullArr.length -1; j >= 0;) {
-        if (num % fullArr[j] !== 0) {
-          num += increment;
+        if (start % fullArr[j] !== 0) {
+          start += increment;
           j = fullArr.length -1; //starts counter over again.
-        } else if(num % fullArr[j] === 0) {
+        } else if(start % fullArr[j] === 0) {
           j--; // counts down if number is divisible
         }
       }
       
-      return num;
-    } // end isDivisible
+      return start;
+    } // end function
