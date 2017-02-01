@@ -1,0 +1,41 @@
+Challenge: Inventory Update
+Compare and update the inventory stored in a 2D array against a second 2D array of a fresh delivery. Update the current existing inventory item quantities (in arr1). If an item cannot be found, add the new item and quantity into the inventory array. The returned inventory array should be in alphabetical order by item.
+
+function updateInventory(arr1, arr2) {
+  // All inventory must be accounted for or you're fired!
+  
+  var inv = []; //empty inventory variable that we will use to check items
+
+  //add stocks numbers together
+  //double .map in place of double for loop; goes through all items in both arrays
+  //if item name matches adds stock numbers together
+  //start stock adder
+  arr1.map(function(item1){
+    arr2.map(function(item2){
+      if(item1[1] === item2[1]) {
+        return item1[0] += item2[0];
+      }
+    });
+  }); //end stock adder
+  // test console.log(arr1[0]); 
+
+  //we need to test if all items in arr2 are in arr1
+  //fill inv variable with item names of arr1
+  arr1.map(function(item) {
+    inv.push(item[1]);  
+  });
+ //test console.log(inv)
+  
+  //check if all item names of arr2 are present in inv variable
+  //if not present adds to arr1
+  arr2.map(function(item) {
+    if(inv.indexOf(item[1]) === -1) {
+      arr1.push(item);
+    }
+  });
+  
+  //alphabetize the newly combined array
+  
+  
+  return arr1.sort();
+}
