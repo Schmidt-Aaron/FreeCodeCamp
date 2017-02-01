@@ -37,7 +37,7 @@ function updateInventory(arr1, arr2) {
   
   //alphabetize the newly combined array by the second property
   var sorted = arr1.sort(function(item1, item2){
-    item1[1] > item2[1];
+    return item1[1] > item2[1];
   });
   
   //return the sorted array :)
