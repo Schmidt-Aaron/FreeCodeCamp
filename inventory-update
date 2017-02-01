@@ -17,14 +17,14 @@ function updateInventory(arr1, arr2) {
       }
     });
   }); //end stock adder
-  // test console.log(arr1[0]); 
+   
 
   //we need to test if all items in arr2 are in arr1
   //fill inv variable with item names of arr1
   arr1.map(function(item) {
     inv.push(item[1]);  
   });
- //test console.log(inv)
+ 
   
   //check if all item names of arr2 are present in inv variable
   //if not present adds to arr1
@@ -34,8 +34,12 @@ function updateInventory(arr1, arr2) {
     }
   });
   
-  //alphabetize the newly combined array
   
+  //alphabetize the newly combined array by the second property
+  var sorted = arr1.sort(function(item1, item2){
+    item1[1] > item2[1];
+  });
   
-  return arr1.sort();
+  //return the sorted array :)
+  return sorted;
 }
