@@ -1,0 +1,38 @@
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  var newArr = [];  //empty array that will be filled with the object we will create
+ 
+  for(var i = 0; i < arr.length; i++){
+    
+    //get alt from given array object
+    var avgAlt = arr[i].avgAlt;
+    
+    // calculate true radius of orbit
+    var axis = earthRadius + avgAlt;
+  
+    // raise radius to the third power  
+    var rToThird = Math.pow(axis, 3);
+    
+    // calculate value inside the square root
+    var denom = rToThird/GM;
+    
+    //calculate orbital period 
+    var oPeriod = 2 * Math.PI * (Math.pow(denom, 0.5));
+    
+    //round oPeriod
+    oPeriod = Math.round(oPeriod);
+    
+    //create a new object with the same name and the orbitalPeriod
+    var arr1 =  {
+      name : arr[i].name,
+      orbitalPeriod : oPeriod  
+    };
+    
+    //add our object to the array that we will return
+    newArr.push(arr1);
+  }
+    
+  //return our finished product
+  return newArr;
+}
