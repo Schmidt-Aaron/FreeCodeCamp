@@ -16,58 +16,54 @@ Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write you
 
 Here are some helpful links: */
 
-//start code... is broken atm
+
 var Person = function(firstAndLast) {
-    //our regEx variables
-    var firstRe = /^\w+/g;
-    var lastRe = /\w+$/g;
     
     //set our name variables
     var fullName = firstAndLast;
-    var lastName = firstAndLast.match(lastRe), 
-    var firstName =firstAndLast.match(firstRe);
-    
-    
+    //var firstName = fullName.split(' ')[0];
+    //var lastName = fullName.split(' ')[1];
+
     //getFullName
     this.getFullName = function(){
-      return firstAndLast;
+      return fullName;
     };
     
     //getFirstName
     this.getFirstName = function() {
-      return firstName;
+      return fullName.split(' ')[0];
     };
     
     //getLastName
     this.getLastName = function() {
-      return lastName;
+      return fullName.split(' ')[1];
     };
     
     //setFirstName
     this.setFirstName = function(name) {
-      firstName = name;
-      console.log(firstName);
+      fullName = name +" "+ fullName.split(' ')[1];
     };
-    
     
     //setLastName
     this.setLastName = function(name) {
-      lastName = name;
+      fullName = fullName.split(' ')[0] + " " + name;
     };
     
     //setFullName
     this.setFullName = function(name){
-      fullName = name;
+       fullName = name;   
     };
     
-};
+}; //end Person
 
 var bob = new Person('Bob Ross');
+
+//tests
 //bob.getFullName();
 //bob.getLastName();
 //bob.getFirstName();
-bob.setFirstName("aaron");
-console.log(bob.getFirstName);
+//bob.setFirstName("aaron");
+//console.log(bob.getFirstName);
 //bob.setLastName("schmidt");
 //console.log(bob.getLastName);
 //bob.setFullName(firstAndLast);
