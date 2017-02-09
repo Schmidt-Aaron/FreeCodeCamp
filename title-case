@@ -1,0 +1,16 @@
+function titleCase(str) {
+  // in order of operations: 
+  // covert entire string to lowercase
+  // call a replace method that uses regex to target the first char of each word
+  // then replace each captured group with a function that converts them to toUpperCase
+  // the regex gets its own line/variable to make code more readable
+  // doesn't work with apostrophes or other non word breaking!!!
+  
+  var re = /\b\w/g; // matches the first char of each word
+  return str.toLowerCase().replace(re, function(char) { 
+    return char.toUpperCase();
+    });
+  
+}
+
+titleCase("HERE IS MY HANDLE HERE IS MY SPOUT");
