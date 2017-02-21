@@ -1,0 +1,24 @@
+
+//start code
+function pairwise(arr, arg) {
+  // our counter
+  var sum = 0;
+  
+  // a copy of the original array to play with
+  var arr2 = arr;
+  
+  //outer loop starting at 0
+  for(var i = 0; i < arr2.length; i++){
+    //inner loop that always starts 1 above i to prevent duplicates
+    for(j = i + 1; j < arr2.length; j++){
+      if(arr2[i] + arr2[j] == arg){
+        sum += i + j;  //add indice numbers to our counter
+        arr2[i] = NaN; //prevent the same numbers from being counted more than once
+        arr2[j] = NaN;  
+      }
+    }
+  }
+  
+  //return the total
+ return sum;
+} //end code
