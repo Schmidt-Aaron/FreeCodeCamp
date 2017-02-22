@@ -1,0 +1,91 @@
+//start code
+function makeFriendlyDates(arr) {
+  // our date strings that will be populated and returned at the end 
+  var start = [];
+  var space = " ";
+  var comma = ", ";
+  var sameYear;
+  
+  //month Names
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  //break given arr into two seperate date objects for easier handling
+  var firstDate = new Date(arr[0]);
+  var secondDate = new Date(arr[1]);
+  //console.log(firstDate);
+  //console.log(secondDate);
+  
+  // the years
+  var firstYear = firstDate.getFullYear();
+  var secondYear = secondDate.getFullYear();
+  //console.log(firstYear);
+  //console.log(secondYear);
+  
+  // the months
+  var firstMonth = months[firstDate.getUTCMonth()];
+  var secondMonth = months[secondDate.getUTCMonth()];
+ // console.log(firstMonth);
+  
+  // the day /w sounds
+  var firstDay = fancyDates(firstDate.getUTCDate());
+  var secondDay = fancyDates(secondDate.getUTCDate());
+  //console.log(secondDay);
+  
+  //generates a Boolean if dates are within same year
+  if(secondDate.getTime() - firstDate.getTime() < 31536000000 ) {
+    sameYear = true;
+  }
+  
+  //add date sounds
+  function fancyDates(day) {
+    switch (day) {
+      case 1:
+      case 21: 
+      case 31:
+        return day + "st";
+      case 2:
+      case 22:
+        return day + "nd";
+      case 3:
+      case 23:
+        return day + "rd";
+      default:
+        return day + "th";
+    }
+  }
+  //logic for various situations... should refactor as it is messy
+  if(firstYear === secondYear && firstMonth === secondMonth && firstDay === secondDay){
+    //console.log("test");
+    start.push(firstMonth + space + firstDay + comma + firstYear);
+    
+  } else if (firstYear === 2016 && secondYear === 2016) {
+      if(firstMonth === secondMonth){
+        start.push(firstMonth + space + firstDay);
+        start.push(secondDay);
+      } else {
+        start.push(firstMonth + space + firstDay); 
+        start.push(secondMonth + space + secondDay);
+      }
+  } else if (firstYear === 2016 && secondYear === 2017) {
+    start.push(firstMonth + space + firstDay);
+    start.push(secondMonth + space + secondDay);
+  } else if (secondYear === firstYear + 1) {
+      if(sameYear){
+        start.push(firstMonth + space + firstDay + comma + firstYear);
+        start.push(secondMonth + space + secondDay);
+      } else {  
+        start.push(firstMonth + space + firstDay + comma + firstYear);
+        start.push(secondMonth + space + secondDay + comma +secondYear);
+      }
+  } else if (firstYear === secondYear) {
+    start.push(firstMonth + space + firstDay + comma + firstYear);
+    start.push(secondMonth + space + secondDay);
+  } else {
+    start.push(firstMonth + space + firstDay + comma + firstYear);
+    start.push(secondMonth + space + secondDay + comma + secondYear);
+  }
+  
+  // the final friendly date range
+  return start;
+  
+}
