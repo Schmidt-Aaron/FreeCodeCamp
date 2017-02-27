@@ -1,0 +1,30 @@
+function sym(args) {
+  
+  //convert to Array
+  var argArr = Array.from(arguments); 
+  
+  function diff(arr1, arr2) {
+    // empty array to retun later
+    var sD = [];
+  
+    //our overly verbose filter that pushes any values not found in the second array to our sD array
+    arr1.forEach(function(item) {
+      if(arr2.indexOf(item) === -1 && sD.indexOf(item) === -1) {
+        sD.push(item);
+      }
+    });
+    
+    //run it again for the second array
+    arr2.forEach(function(item) {
+      if(arr1.indexOf(item) === -1 && sD.indexOf(item) === -1) {
+        sD.push(item);
+      }
+    });
+    
+    //return the difference
+    return sD;
+  }
+  
+  //call the reduce function using our diff function 
+ return argArr.reduce(diff);
+}
