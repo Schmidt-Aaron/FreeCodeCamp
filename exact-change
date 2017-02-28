@@ -1,52 +1,82 @@
-//incomplete
 function checkCashRegister(price, cash, cid) {
-  var change;
-  var amtBack;
-  var totalCash = 0;
+  //adjust prices to cents
+  price *= 100; 
+  cash *= 100;
+  var change = []; 
+  var changeDue = cash - price;   //calculate change due in cents
+  var totalCid = 0;               //total cash in cents
+  var changeLeft = changeDue;     // copy the changeDue into another variable that we can play with
+  
+  totalCid = atHand(cid);
+  
+  //what to do if the change matches the total cash in the register
+  if( changeDue === totalCid ) {
+    return "Closed";
+  }
+ 
+  
+  for( var i = cid.length -1; i >= 0; i-- ){
+    //to figure out how we will changeout the purchase we will loop through our cashVal array and try to subtract the nominal value from the change value. if successful we will try again
+    var curName = cid[i][0];                        //name of current denomination
+    var curVal = currency(curName);                 //cash value of current denomination in cents
+    var count = 0;
+    var totalCurVal;
+    
+    while(curVal <= changeLeft && cid[i][1] > 0){   // do this if the currency value is <= the change to be returned
+      changeLeft -= curVal;                         // subtract value of currency from the changedue
+      cid[i][1] -= (curVal / 100);                  // subtract the adjusted back value from the cid
+      count++;                                      // increase our count for each unit of currency returned
+    } 
+    
+    //what to do after while loop finishes
+    //do this only if the count was increased during the loop
+    if(count > 0) {                   
+      totalCurVal = (count * curVal / 100);         //the total value of the currency returned
+      change.push([curName, totalCurVal]);
+    }
+  }
+  
+  //switch expression to get the value of each currency in cents
+  function currency(name){
+    switch(name) {
+      case "PENNY":
+        return 1;
+      case "NICKEL":
+        return  5;
+      case "DIME":
+        return 10;
+      case "QUARTER":
+        return 25;
+      case "ONE":
+        return 100;
+      case "FIVE":
+        return 500;
+      case "TEN":
+        return  1000;
+      case "TWENTY":
+        return 2000;
+      case "ONE HUNDRED":
+        return 10000;
+    }
+  }
+  
+  //calc total cash value in cents of a currency array
+  function atHand(arr) {
+   var total = 0;
+    for( var j = 0; j < arr.length ; j++ ){
+      total += (arr[j][1] * 100);
+    }
+    return total;
+  }
+  
   //figure out if purchase will go through
-  if(price > cash) {
+  if( changeDue != atHand(change)) {
     return "Insufficient Funds";
   }
   
-  //calc total cash on hand with a for loop. math.round is there to fix weird js adding bug
- function atHand(arr) {
-    for(var j = 0; j <arr.length; j++){
-      totalCash += Math.round(arr[j][1]);
-    }
-  }
-
-  atHand(cid);  //gives us a total  
-  
-  //what to do if the change
-  
-  /*
-  //calculate change
-  amtBack = cash - price;
-  //console.log(amtBack);
-  
-  //figure out how much change will come amtBack
-  //console.log(cid[1][1]);
-  
-  var cashVal = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
-  
-  var revCashVal = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
-  
-  for( var i = cashVal.length; i >= 0; i--){
-    //to figure out how we will changeout the purchase we will loop through our cashVal array and try to subtract the nominal value from the change value. if successful we will try again
-    if(revCashVal[i] <= amtBack) {
-      amtBack -= revCashVal[i];
-      i++; //increase the counter to try the same value again
-      cid[i][1] -= revCashVal[i];
-    }
-    //console.log(amtBack);
-  }
-  
-  change
-  
-  
   // Here is your change, ma'am.
   return change;
-  */
+  
 }
 
 // Example cash-in-drawer array:
