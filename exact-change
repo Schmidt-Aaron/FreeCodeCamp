@@ -1,0 +1,63 @@
+//incomplete
+function checkCashRegister(price, cash, cid) {
+  var change;
+  var amtBack;
+  var totalCash = 0;
+  //figure out if purchase will go through
+  if(price > cash) {
+    return "Insufficient Funds";
+  }
+  
+  //calc total cash on hand with a for loop. math.round is there to fix weird js adding bug
+ function atHand(arr) {
+    for(var j = 0; j <arr.length; j++){
+      totalCash += Math.round(arr[j][1]);
+    }
+  }
+
+  atHand(cid);  //gives us a total  
+  
+  //what to do if the change
+  
+  /*
+  //calculate change
+  amtBack = cash - price;
+  //console.log(amtBack);
+  
+  //figure out how much change will come amtBack
+  //console.log(cid[1][1]);
+  
+  var cashVal = [100, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
+  
+  var revCashVal = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
+  
+  for( var i = cashVal.length; i >= 0; i--){
+    //to figure out how we will changeout the purchase we will loop through our cashVal array and try to subtract the nominal value from the change value. if successful we will try again
+    if(revCashVal[i] <= amtBack) {
+      amtBack -= revCashVal[i];
+      i++; //increase the counter to try the same value again
+      cid[i][1] -= revCashVal[i];
+    }
+    //console.log(amtBack);
+  }
+  
+  change
+  
+  
+  // Here is your change, ma'am.
+  return change;
+  */
+}
+
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.10],
+// ["QUARTER", 4.25],
+// ["ONE", 90.00],
+// ["FIVE", 55.00],
+// ["TEN", 20.00],
+// ["TWENTY", 60.00],
+// ["ONE HUNDRED", 100.00]]
+
+checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
