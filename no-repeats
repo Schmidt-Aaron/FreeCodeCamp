@@ -1,0 +1,40 @@
+function permAlone(str) {
+  //heaps algorithm in action
+  var n = str.length;   // number of chars in the string
+  var perms = [];       // empty array to add permutations too
+  var arr = str.split('');
+  var swapTmp;
+  var re = /(\w)\1+/g;  //RegExp that will match any two consecutive letters
+  
+  
+  function swap(one, two) {
+    swapTmp = arr[one];       // assigns first val to a placeholder
+    arr[one] = arr[two];      // assigns second val to first val
+    arr[two] = swapTmp;       // assigns placehold val to second val
+  }
+
+  // what to do if str is all of same char?
+  function perm(int) {
+    if(int === 1) {
+      perms.push(arr.join(""));
+    }
+    for (var i = 0; i != int ; i++) {
+      perm(int - 1);
+      
+      if(int % 2 === 0) {
+        swap(i, int - 1);
+      } else {
+        swap(0, int - 1);
+      }
+    }
+    
+  }
+  
+  perm(n);
+  
+  var filtered = perms.filter((word) => {
+    return !word.match(re);
+  });
+  
+  return filtered.length;
+}
